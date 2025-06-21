@@ -185,7 +185,7 @@ function initializeWebsiteAnimations() {
     if (document.querySelector('.qualities')) {
         animateQualitiesSection();
     }
-    
+   
     initCursorReactive();
 }
 
@@ -267,6 +267,31 @@ function initNavigation() {
                 link.classList.add('active');
             }
         });
+    });
+    
+    // Sticky Header with Hide on Scroll Down
+    let lastScroll = 0;
+    const scrollThreshold = 10;
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll <= 0) {
+            header.classList.remove('scroll-up');
+            return;
+        }
+        
+        if (currentScroll > lastScroll && currentScroll > 80) {
+            // Scrolling down
+            header.classList.remove('scroll-up');
+            header.classList.add('scroll-down');
+        } else if (currentScroll < lastScroll - scrollThreshold) {
+            // Scrolling up
+            header.classList.remove('scroll-down');
+            header.classList.add('scroll-up');
+        }
+        
+        lastScroll = currentScroll;
     });
 }
 
@@ -540,6 +565,7 @@ function initCursorReactive() {
 
             element.style.setProperty('--mouse-x', `${x}px`);
             element.style.setProperty('--mouse-y', `${y}px`);
+
         });
     });
 }
@@ -548,6 +574,7 @@ function initCursorReactive() {
 // function loadMoreProjects() {
 //     // This function is now primarily handled by projects.js for the projects page
 // }
+
 
 
 
